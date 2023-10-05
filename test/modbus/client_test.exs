@@ -23,34 +23,4 @@ defmodule Modbus.ClientTest do
     assert response == @test_response
     :ok = Modbus.Client.close(socket)
   end
-
-  test "parse_big_uint" do
-    response = <<0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1>>
-    assert Modbus.Client.parse_big_uint(response, 2, 16) == 1
-  end
-
-  test "parse_big_int" do
-    response = <<0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255>>
-    assert Modbus.Client.parse_big_int(response, 2, 16) == -1
-  end
-
-  test "parse_big_float" do
-    response = <<0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 63, 128, 0, 0>>
-    assert Modbus.Client.parse_big_float(response, 2, 32) == 1
-  end
-
-  test "parse_little_uint" do
-    response = <<0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0>>
-    assert Modbus.Client.parse_little_uint(response, 2, 16) == 1
-  end
-
-  test "parse_little_int" do
-    response = <<0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255>>
-    assert Modbus.Client.parse_little_int(response, 2, 16) == -1
-  end
-
-  test "parse_little_float" do
-    response = <<0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 63>>
-    assert Modbus.Client.parse_little_float(response, 2, 32) == 1
-  end
 end

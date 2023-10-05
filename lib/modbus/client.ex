@@ -13,42 +13,6 @@ defmodule Modbus.Client do
     |> handle_response()
   end
 
-  def parse_big_uint(response, byte_offset, bit_size) do
-    new_byte_offset = byte_offset + 9
-    <<_::new_byte_offset*8, value::big-unsigned-integer-size(bit_size), _::binary>> = response
-    value
-  end
-
-  def parse_big_int(response, byte_offset, bit_size) do
-    new_byte_offset = byte_offset + 9
-    <<_::new_byte_offset*8, value::big-signed-integer-size(bit_size), _::binary>> = response
-    value
-  end
-
-  def parse_big_float(response, byte_offset, bit_size) do
-    new_byte_offset = byte_offset + 9
-    <<_::new_byte_offset*8, value::big-float-size(bit_size)>> = response
-    value
-  end
-
-  def parse_little_uint(response, byte_offset, bit_size) do
-    new_byte_offset = byte_offset + 9
-    <<_::new_byte_offset*8, value::little-unsigned-integer-size(bit_size), _::binary>> = response
-    value
-  end
-
-  def parse_little_int(response, byte_offset, bit_size) do
-    new_byte_offset = byte_offset + 9
-    <<_::new_byte_offset*8, value::little-signed-integer-size(bit_size), _::binary>> = response
-    value
-  end
-
-  def parse_little_float(response, byte_offset, bit_size) do
-    new_byte_offset = byte_offset + 9
-    <<_::new_byte_offset*8, value::little-float-size(bit_size)>> = response
-    value
-  end
-
   def close(socket) do
     :gen_tcp.close(socket)
   end
