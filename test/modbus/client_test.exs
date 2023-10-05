@@ -1,5 +1,4 @@
 defmodule Modbus.ClientTest do
-  require Logger
   use ExUnit.Case, async: false
 
   @test_response <<0, 0, 0, 0, 0, 0, 0, 3, 0>>
