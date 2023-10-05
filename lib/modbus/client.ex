@@ -31,7 +31,9 @@ defmodule Modbus.Client do
     :gen_tcp.recv(socket, 0, timeout)
   end
 
-  defp receive_response({:error, reason}, _timeout), do: {:error, reason}
+  defp receive_response({:error, reason}, _timeout) do
+    {:error, reason}
+  end
 
   defp handle_response({:ok, response}) do
     case {err_code, exc_code} = extract_read_err_codes(response) do
@@ -43,10 +45,16 @@ defmodule Modbus.Client do
     end
   end
 
-  defp handle_response({:error, reason}), do: {:error, reason}
+  defp handle_response({:error, reason}) do
+    {:error, reason}
+  end
 
-  defp extract_read_err_codes(response) do
+  defp extract_read_err_codes(response) when byte_size(response) >= 9 do
     <<_::7*8, err_code::8, exc_code::8, _::binary>> = response
     {err_code, exc_code}
+  end
+
+  defp extract_read_err_codes(_response) do
+    {:error, :invalid_response}
   end
 end

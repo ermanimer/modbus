@@ -70,5 +70,7 @@ defmodule Modbus.Parser do
     {:ok, <<value::size(bit_size)>>}
   end
 
-  def extract(_data, _byte_offset, _bit_size), do: {:error, :invalid_data_size}
+  def extract(_data, _byte_offset, _bit_size) do
+    {:error, :invalid_data_size}
+  end
 end
