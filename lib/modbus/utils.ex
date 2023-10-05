@@ -1,4 +1,4 @@
-defmodule Modbus.Parser do
+defmodule Modbus.Utils do
   def parse_big_uint(data, byte_ofset, bit_size) when bit_size in [16, 32, 64] do
     case extract(data, byte_ofset, bit_size) do
       {:ok, extracted_data} ->
